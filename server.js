@@ -13,7 +13,7 @@ axios.get("https://www.infowars.com/").then(function(response) {
 
         const summary = $(element).find("div.article-content").find("h4.entry-subtitle").text();
 
-        const link = $(element).find("div.article-content").find("h4.entry-subtitle").attr("href");
+        const link = $(element).find("div.article-content").find("h3").find("a").attr("href");
 
         const category = $(element).find("div.article-content").find("div.category-name").find("span.blue-cat").find("a").text();
 
