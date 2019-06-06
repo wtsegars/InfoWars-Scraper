@@ -1,7 +1,21 @@
 const cheerio = require('cheerio');
 const axios = require('axios');
+const mongoose = require('mongoose');
+const express = require('express');
+const db = require('./models');
 
-axios.get("https://www.infowars.com/").then(function(response) {
+const PORT = 3000;
+
+const app = express();
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static("public"));
+
+mongoose.connect("mongodb://localhost/infowars", { useNewUrlParser: true });
+
+app.get("/scrape", function(req, res) {
+    axios.get("https://www.infowars.com/").then(function(response) {
     const $ = cheerio.load(response.data);
 
     let results = [];
@@ -26,4 +40,9 @@ axios.get("https://www.infowars.com/").then(function(response) {
         });
     });
     console.log(results);
-})
+    });
+    res.send("Scrape Complete");
+});
+app.listen(PORT, function() {
+    console.log("App running on port " + PORT + "!");
+});
