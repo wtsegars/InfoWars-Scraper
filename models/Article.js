@@ -6,4 +6,26 @@ const ArticleSchema = new Schema({
         type: String,
         required: true
     },
-})
+    image: {
+        type: String,
+        required: false,
+        //default: 
+    },
+    summary: {
+        type: String,
+        required: true
+    },
+    url: {
+        type: String,
+        required: false
+        //default:
+    },
+    category: {
+        type: String,
+        required: true
+    }
+});
+
+const Article = mongoose.model("Article", ArticleSchema);
+
+module.exports = Article;
