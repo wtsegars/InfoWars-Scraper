@@ -22,13 +22,9 @@ app.get("/scrape", function(req, res) {
 
     $("article").each(function(i, element) {
         const title = $(element).find("div.article-content").find("h3").find("a").text();
-
         const image = $(element).find("div.thumbnail").find("a").attr("href");
-
         const summary = $(element).find("div.article-content").find("h4.entry-subtitle").text();
-
         const link = $(element).find("div.article-content").find("h3").find("a").attr("href");
-
         const category = $(element).find("div.article-content").find("div.category-name").find("span.blue-cat").find("a").text();
 
         results.push({
@@ -43,6 +39,33 @@ app.get("/scrape", function(req, res) {
     });
     res.send("Scrape Complete");
 });
+
+app.get("/articles", function(req, res){
+    db.Article.find({}).then(function(dbarticle){
+        res.json(dbarticle);
+    }).catch(function(err){
+        res.json(err);
+    });
+});
+
+app.get("/articles/:id", function(req, res) {
+    db.Article.findOne({_id: req.params.id }).populate("comment").then(function(dbarticle) {
+        res.json(dbarticle);
+    }).catch(function(err){
+        res.json(err);
+    });
+});
+
+app.post("/articles/:id", function(req, res) {
+    db.Comment.create(req.body).then(function(dbComment) {
+        return db.Article.findOneAndUpdate({_id: req.params.id}, { comment: dbComment._id }, { new: true});
+    }).then(function(dbArticle) {
+        res.json(dbArticle);
+    }).catch(function(err) {
+        res.json(err);
+    });
+});
+
 app.listen(PORT, function() {
     console.log("App running on port " + PORT + "!");
 });
