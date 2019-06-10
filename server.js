@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const db = require('./models');
 
-const PORT = 3000;
+const PORT = 8889;
 
 const app = express();
 
@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost/infowars", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost:27017/infowarsdb", { useNewUrlParser: true });
 
 app.get("/scrape", function(req, res) {
     axios.get("https://www.infowars.com/").then(function(response) {
@@ -33,6 +33,12 @@ app.get("/scrape", function(req, res) {
             summary: summary,
             url: link,
             category: category
+        });
+
+        db.Article.create(results).then(function(dbArticle) {
+            console.log(dbArticle);
+        }).catch(function(err) {
+            console.log(err);
         });
     });
     console.log(results);

@@ -4,25 +4,25 @@ const Schema = mongoose.Schema;
 const ArticleSchema = new Schema({
     title: {
         type: String,
-        required: true
+        //required: true
     },
     image: {
         type: String,
         required: false,
-        //default: 
+        default: '/public/images/defaultimg.png'
     },
     summary: {
         type: String,
-        required: true
+        //required: true
     },
     url: {
         type: String,
-        required: false
-        //default:
+        required: false,
+        default: 'no link available'
     },
     category: {
         type: String,
-        required: true
+        //required: true
     }
 });
 
