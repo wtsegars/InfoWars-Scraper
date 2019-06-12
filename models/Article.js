@@ -4,16 +4,18 @@ const Schema = mongoose.Schema;
 const ArticleSchema = new Schema({
     title: {
         type: String,
-        //required: true
+        unique: true,
+        required: true
     },
     image: {
         type: String,
         required: false,
-        default: '/public/images/defaultimg.png'
+        default: '/images/defaultimg.png'
     },
     summary: {
         type: String,
-        //required: true
+        unique: true,
+        required: true
     },
     url: {
         type: String,
@@ -22,7 +24,7 @@ const ArticleSchema = new Schema({
     },
     category: {
         type: String,
-        //required: true
+        required: true
     }
 });
 
