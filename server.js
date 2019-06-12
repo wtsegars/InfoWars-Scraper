@@ -3,16 +3,30 @@ const axios = require('axios');
 const mongoose = require('mongoose');
 const express = require('express');
 const db = require('./models');
+const exphbs = require('express-handlebars');
 
 const PORT = 8889;
 
 const app = express();
 
+app.use(express.static("public"));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
 mongoose.connect("mongodb://localhost:27017/infowarsdb", { useNewUrlParser: true });
+
+app.get("/", function(req, res) {
+    db.Article.find({}).then(function(dbarticle){
+        res.render("index", {article: dbarticle});
+    }).catch(function(err){
+        res.json(err);
+    });
+});
 
 app.get("/scrape", function(req, res) {
     axios.get("https://www.infowars.com/").then(function(response) {
@@ -22,7 +36,7 @@ app.get("/scrape", function(req, res) {
 
     $("article").each(function(i, element) {
         const title = $(element).find("div.article-content").find("h3").find("a").text();
-        const image = $(element).find("div.thumbnail").find("a").attr("href");
+        const image = $(element).find("div.thumbnail").find("a").find("img").attr("src");
         const summary = $(element).find("div.article-content").find("h4.entry-subtitle").text();
         const link = $(element).find("div.article-content").find("h3").find("a").attr("href");
         const category = $(element).find("div.article-content").find("div.category-name").find("span.blue-cat").find("a").text();
