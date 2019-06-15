@@ -14,7 +14,6 @@ const ArticleSchema = new Schema({
     },
     summary: {
         type: String,
-        unique: true,
         //required: true
     },
     url: {
@@ -24,7 +23,7 @@ const ArticleSchema = new Schema({
     },
     category: {
         type: String,
-        required: true
+        //required: true
     },
     comment: {
         type: mongoose.Types.ObjectId,

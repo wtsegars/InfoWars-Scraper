@@ -8,7 +8,6 @@ const CommentSchema = new Schema({
     },
     author: {
         type: String,
-        required: false,
         default: "Anyomous"
     },
     comment: {
