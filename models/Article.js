@@ -5,7 +5,7 @@ const ArticleSchema = new Schema({
     title: {
         type: String,
         unique: true,
-        required: true
+        //required: true
     },
     image: {
         type: String,
@@ -15,7 +15,7 @@ const ArticleSchema = new Schema({
     summary: {
         type: String,
         unique: true,
-        required: true
+        //required: true
     },
     url: {
         type: String,
@@ -25,6 +25,10 @@ const ArticleSchema = new Schema({
     category: {
         type: String,
         required: true
+    },
+    comment: {
+        type: Schema.Types.ObjectId,
+        ref: "Comment"
     }
 });
 
