@@ -87,7 +87,7 @@ app.post("/articles/:id", function(req, res) {
 });
 
 app.get("/comment/:id", function(req, res) {
-    db.Article.findOne({_id: req.params.id }).populate("comment").then(function(dbarticle) {
+    db.Article.find({_id: req.params.id }).populate("comment").then(function(dbarticle) {
         res.json(dbarticle);
     }).catch(function(err){
         res.json(err);
