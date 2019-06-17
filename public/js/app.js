@@ -18,7 +18,7 @@ $(document).ready(function() {
             }
         }).then(function(data) {
             for (let i = 0; i < data.length; i++){
-                $('#showComments').append('<h3 id="author"></h3><br /><h3 id="title"></h3><br /><h3 id="comment></h3>');
+                $('#showComments').append('<h3 id="author">' + data.author + '</h3><br /><h3 id="title">' + data.title + '</h3><br /><h3 id="comment>' + data.comment + '</h3>');
             }
 
             console.log(data);
