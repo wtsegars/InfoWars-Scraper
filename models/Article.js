@@ -5,7 +5,7 @@ const ArticleSchema = new Schema({
     title: {
         type: String,
         unique: true,
-        //required: true
+        required: true
     },
     image: {
         type: String,
@@ -14,7 +14,7 @@ const ArticleSchema = new Schema({
     },
     summary: {
         type: String,
-        //required: true
+        required: true
     },
     url: {
         type: String,
@@ -23,10 +23,10 @@ const ArticleSchema = new Schema({
     },
     category: {
         type: String,
-        //required: true
+        required: true
     },
     comment: {
-        type: mongoose.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "Comment"
     }
 });
