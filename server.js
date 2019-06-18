@@ -61,7 +61,7 @@ app.get("/scrape", function(req, res) {
 });
 
 app.get("/articles", function(req, res){
-    db.Article.find({}).then(function(dbarticle){
+    db.Article.find({}).populate("comment").then(function(dbarticle){
         res.json(dbarticle);
     }).catch(function(err){
         res.json(err);
@@ -77,6 +77,7 @@ app.get("/articles/:id", function(req, res) {
 });
 
 app.post("/articles/:id", function(req, res) {
+    console.log(req.body);
     db.Comment.create(req.body).then(function(dbComment) {
         return db.Article.findOneAndUpdate({_id: req.params.id}, { comment: dbComment._id }, { new: true});
     }).then(function(dbArticle) {
