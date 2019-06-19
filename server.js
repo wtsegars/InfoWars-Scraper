@@ -87,23 +87,23 @@ app.post("/articles/:id", function(req, res) {
     });
 });
 
-app.get("/comment/:id", function(req, res) {
-    db.Article.find({_id: req.params.id }).populate("comment").then(function(dbarticle) {
-        res.json(dbarticle);
-    }).catch(function(err){
-        res.json(err);
-    });
-});
+// app.get("/comment/:id", function(req, res) {
+//     db.Article.find({_id: req.params.id }).populate("comment").then(function(dbarticle) {
+//         res.json(dbarticle);
+//     }).catch(function(err){
+//         res.json(err);
+//     });
+// });
 
-app.post("/comment/:id", function(req, res) {
-    db.Comment.find({}).populate("comment").then(function(dbComment) {
-        return db.Article.find({ title: dbComment.title }, { author: dbComment.author }, { comment: dbComment.comment});
-    }).then(function(dbArticle) {
-        res.json(dbArticle);
-    }).catch(function(err){
-        res.json(err);
-    });
-});
+// app.post("/comment/:id", function(req, res) {
+//     db.Comment.find({}).populate("comment").then(function(dbComment) {
+//         return db.Article.find({ title: dbComment.title }, { author: dbComment.author }, { comment: dbComment.comment});
+//     }).then(function(dbArticle) {
+//         res.json(dbArticle);
+//     }).catch(function(err){
+//         res.json(err);
+//     });
+// });
 
 app.listen(PORT, function() {
     console.log("App running on port " + PORT + "!");
