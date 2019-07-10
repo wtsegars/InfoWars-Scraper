@@ -18,7 +18,11 @@ app.use(express.static("public"));
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-mongoose.connect("mongodb://localhost:27017/infowarsdb", { useNewUrlParser: true });
+//mongoose.connect("mongodb://localhost:27017/infowarsdb", { useNewUrlParser: true });
+
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/infowarddb";
+
+mongoose.connect(MONGODB_URI);
 
 app.get("/", function(req, res) {
     db.Article.find({}).populate("comment").then(function(dbarticle){
